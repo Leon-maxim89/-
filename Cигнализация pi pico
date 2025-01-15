@@ -1,0 +1,50 @@
+from machine import Pin, PWM
+import time
+
+# Настройка PIR-сенсора
+pir_sensor = Pin(15, Pin.IN)
+
+# Настройка зуммера
+buzzer = PWM(Pin(14))
+
+def play_buzzer():
+    buzzer.freq(1000)  # Частота звука
+    buzzer.duty_u16(30000)  # Уровень громкости
+    time.sleep(0.2)
+    buzzer.duty_u16(0)  # Выключить звук
+
+# Настройка светодиода
+led = Pin(13, Pin.OUT)
+
+# Настройка слайд-переключателя
+slide_switch = Pin(16, Pin.IN, Pin.PULL_UP)  # Пин переключателя с подтяжкой вверх
+
+# Настройка кнопки для тестирования
+push_button = Pin(17, Pin.IN, Pin.PULL_DOWN)  # Пин кнопки с подтяжкой вниз
+
+def is_system_activated():
+    return slide_switch.value() == 1  # Проверяем состояние переключателя
+
+# Проверка кнопки для тестирования
+while True:
+    if push_button.value() == 1:  # Если кнопка нажата
+        print("Тестирование зуммера и светодиода...")
+        led.value(1)  # Включить светодиод
+        play_buzzer()  # Воспроизвести звук
+        led.value(0)  # Выключить светодиод
+        time.sleep(0.5)  # Задержка, чтобы избежать многократных срабатываний
+
+    if is_system_activated():
+        print("Система активирована. Ожидание движения...")
+
+        while is_system_activated():
+            if pir_sensor.value() == 1:
+                print("Движение обнаружено!")
+                led.value(1)  # Включить светодиод
+                play_buzzer()
+                time.sleep(2)  # Задержка, чтобы избежать многократных срабатываний
+                led.value(0)  # Выключить светодиод
+            time.sleep(0.1)
+    else:
+        print("Система не активирована. Переключите слайд-переключатель в положение 'ON'.")
+        time.sleep(3.0)
