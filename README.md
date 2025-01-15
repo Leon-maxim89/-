@@ -2,4 +2,4 @@
 https://wokwi.com/projects/420089452910788609
 
 сисиема написания сигнализации с использованием симулятора Raspberry Pi Pico.
-https://wokwi.com/projects/new/pi-pico
+https://wokwi.com/projects/420161665774022657
