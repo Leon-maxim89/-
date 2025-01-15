@@ -2,4 +2,4 @@
 https://wokwi.com/projects/420089452910788609
 
 Был запущен эмулятор на плате Raspberry Pi Pico. Для проверки кода тестируемые элементы были выбраны: LED (светодиод), PIR Motion Sensor (датчик движения), Buzzer (зуммер); Keypad (клавиатура)
-https://wokwi.com/projects/420161665774022657
+https://wokwi.com/projects/420170099357563905
